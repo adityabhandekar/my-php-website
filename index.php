@@ -1,0 +1,229 @@
+<?php include('dbConnection.php'); ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinefy - Professional Home Cleaning Services</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .service-card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .contact-section {
+            background-color: #f8f9fa;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .logo {
+            color:rgb(255, 255, 255);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="#">Clinefy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#feedback">Feedback</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-outline-light me-2">User Login</a>
+                    <a href="Admin/adminlogin.html" class="btn btn-light">Admin Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Professional Home Cleaning Services</h1>
+            <p class="lead mb-5">Experience the joy of a spotless home without lifting a finger</p>
+            <a href="#get-started" class="btn btn-primary btn-lg px-4 me-2">Get Started</a>
+            <a href="#contact" class="btn btn-outline-light btn-lg px-4">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4">About Clinefy</h2>
+                    <p class="lead">We're revolutionizing home cleaning with our professional, reliable, and eco-friendly services.</p>
+                    <p>Clinefy connects you with vetted cleaning professionals who deliver exceptional results every time. Our mission is to make your life easier by taking care of your home cleaning needs with the highest standards of quality and professionalism.</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Certified and background-checked cleaners</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Eco-friendly cleaning products</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> 100% satisfaction guarantee</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Flexible scheduling options</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1598520106830-8c45c2035460?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Cleaning professional" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Our Services</h2>
+            <div class="text-center">
+                <a href="services.php" class="btn btn-outline-primary btn-lg px-4">
+                    Explore More Services <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Contact Us</h2>
+            <div class="text-center">
+                <a href="contact.php" class="btn btn-outline-primary btn-lg px-4">
+                    Contact Us <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+<section id="feedback" class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-4">What Our Customers Say</h2>
+        <div class="row">
+        <?php
+        $sql = "SELECT name, rating, feedback_text, created_at FROM feedback WHERE status = 1 ORDER BY created_at DESC LIMIT 5";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0):
+            while($row = $result->fetch_assoc()):
+        ?>
+            <div class="col-md-6 mb-4">
+                <div class="border rounded p-3 shadow-sm bg-white h-100">
+                    <h5><?= htmlspecialchars($row['name']) ?> 
+                        <small class="text-muted"> — <?= date("d M Y", strtotime($row['created_at'])) ?></small>
+                    </h5>
+                    <p class="text-warning mb-1">
+                        <?php for ($i = 0; $i < $row['rating']; $i++) echo '★'; ?>
+                        <?php for ($i = $row['rating']; $i < 5; $i++) echo '☆'; ?>
+                    </p>
+                    <p class="mb-0"><?= nl2br(htmlspecialchars($row['feedback_text'])) ?></p>
+                </div>
+            </div>
+        <?php endwhile; else: ?>
+            <p class="text-center">No feedback yet. Be the first to share!</p>
+        <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<section id="feedback" class="py-5 bg-white">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-4">We Value Your Feedback</h2>
+        <form action="submit_feedback.php" method="POST" class="col-md-8 mx-auto">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Rating</label><br>
+                <?php for ($i = 1; $i <= 5; $i++): ?>
+                    <input type="radio" name="rating" value="<?= $i ?>" required> <?= $i ?>
+                <?php endfor; ?>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Feedback</label>
+                <textarea name="feedback_text" rows="4" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-warning">Submit Feedback</button>
+        </form>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="text-warning mb-4">Clinefy</h5>
+                    <p>Professional home cleaning services that you can trust. We're committed to making your life easier and your home cleaner.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#services" class="text-white text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="#contact" class="text-white text-decoration-none">Contact</a></li>
+                        <li class="mb-2"><a href="#feedback" class="text-white text-decoration-none">Feedback</a></li>
+                    </ul>
+                </div>
+                      <div class="col-md-6">
+          <h5>Contact Us</h5>
+        <p><i class="fas fa-phone-alt me-2"></i>+91 0000000000</p>
+        <p><i class="fas fa-envelope me-2"></i>support@cleanify.com</p>
+        <p><i class="fas fa-map-marker-alt me-2"></i>000, Gajanan Nagar, Wardha, India</p>
+      </div>
+    </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 Clinefy. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-white text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

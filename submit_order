@@ -1,0 +1,44 @@
+Column Descriptions:
+id: A unique identifier for each order.
+
+service_id: Links to a specific service, can be referenced from the services_tb table.
+
+customer_name: Name of the customer placing the order.
+
+contact: Customer's contact number.
+
+address: The address of the customer.
+
+appointment_date: The date when the service is scheduled.
+
+order_date: Timestamp of when the order was placed.
+
+service_title: The title or name of the service being ordered.
+
+service_description: A detailed description of the service.
+
+service_rate: The cost associated with the service.
+
+technician_name: The technician assigned to the order.
+
+order_status: The current status of the order (e.g., "pending", "completed").
+
+user_id: A foreign key linking to the userregistration_tb table to associate the order with a user.
+
+This version of the table keeps the following key fields:
+
+user_id: The ID of the user placing the order (links to a users_tb table).
+
+service_id: The ID of the service being ordered (links to a services_tb table).
+
+full_name, email, phone, address, pincode: The delivery details.
+
+appointment_date: The date the service is scheduled.
+
+order_date: The timestamp when the order was placed (auto-populated).
+
+service_title, service_description, service_rate: Information about the service.
+
+amount: The total amount for the service.
+
+order_status: The current status of the order (can be 'Pending', 'Completed', etc.).
